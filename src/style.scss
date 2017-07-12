@@ -18,6 +18,7 @@ $screen-sm-min: 768px;
 $screen-md-min: 992px;
 $screen-lg-min: 1070px;
 
+$menuHeight: 60px;
 
 // ------------------------------------------------------------------------
 // MIXINS
@@ -64,6 +65,35 @@ $screen-lg-min: 1070px;
 
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
+.appp{
+  height: 100vh;
+
+  .row{
+    height: 100%;
+  }
+}
+
+.appp-header{
+  position: fixed;
+  width: 100%;
+  height: $menuHeight;
+  background-color: white;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 1px solid $greyLLL;
+  padding: 20px;
+}
+
+.appp-main{
+  padding-top: $menuHeight;
+  height: 100%;
+}
+
+.appp-left{
+  border-right: 1px solid $greyLLL;
+  height: 100%;
+}
 
 // ------------------------------------------------------------------------
 // MEDIA QUERIES
