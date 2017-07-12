@@ -1,0 +1,12 @@
+# dependencies
+node_modules
+#
+# production
+build
+assets/
+dist/
+#
+# misc
+.DS_Store
+.sass-cache/
+--*

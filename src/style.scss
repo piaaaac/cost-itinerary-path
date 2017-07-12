@@ -1,0 +1,83 @@
+// ------------------------------------------------------------------------
+// VARS
+// ------------------------------------------------------------------------
+
+$greyDDD: #333;
+$greyDD: #666;
+$greyM: #787878;
+$greyL: #bbb;
+$greyLL: #cdcdcd;
+$greyLLL: #eee;
+$greyLLLL: #F6F6F6;
+$redD: #D0011B;
+$redDD: #930D1E;
+
+// BOOTSTRAP DEFAULTS
+$screen-xs-max: 768px;
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1070px;
+
+
+// ------------------------------------------------------------------------
+// MIXINS
+// ------------------------------------------------------------------------
+
+@mixin fontSmall{
+  font-family: Tahoma, Helvetica, sans-serif;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 13px;
+}
+
+@mixin propTransition($prop, $speed, $ease){
+  -webkit-transition: $prop $speed $ease;
+  -moz-transition: $prop $speed $ease;
+  -o-transition: $prop $speed $ease;
+  -ms-transition: $prop $speed $ease;
+  transition: $prop $speed $ease;
+}
+
+@mixin rounded($radius) {
+  -webkit-border-radius: $radius; 
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+
+// ------------------------------------------------------------------------
+// SCSS
+// ------------------------------------------------------------------------
+
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
+
+// ------------------------------------------------------------------------
+// MEDIA QUERIES
+// ------------------------------------------------------------------------
+
+// Extra small devices (phones, less than 768px) 
+// No media query since this is the default
+
+// Small devices (tablets, 768px and up)
+// @media (min-width: $screen-sm-min) {}
+
+// Medium devices (desktops, 992px and up)
+// @media (min-width: $screen-md-min) {
+
+// Large devices (large desktops, 1200px and up)
+// @media (min-width: $screen-lg-min) {}
+
