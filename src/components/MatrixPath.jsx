@@ -11,7 +11,7 @@ export default function MatrixPath({
       const lineVProps = {
         key: 'line-'+ i,
         id: 'line-'+ i,
-        className: "svg-path-line" + (e.type.trim() === 'S' ? ' small' : ''),
+        className: "svg-path-line vertical" + (e.type.trim() === 'S' ? ' small-trip' : ''),
         x1: xScale(e.date),
         x2: xScale(e.date),
         y1: yScale(a[i-1].place),
@@ -23,7 +23,7 @@ export default function MatrixPath({
       const lineHProps = {
         key: 'line-to-'+ i,
         id: 'line-to-'+ i,
-        className: "svg-path-line" + (a[i-1].type.trim() === 'S' ? ' small' : ''),
+        className: "svg-path-line horizontal" + (a[i-1].type.trim() === 'S' ? ' small-trip' : ''),
         x1: xScale(a[i-1].date),
         x2: xScale(e.date),
         y1: yScale(a[i-1].place),

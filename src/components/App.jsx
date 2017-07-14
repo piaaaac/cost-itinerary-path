@@ -16,6 +16,21 @@ Right
   Map
   MapPath
   MapLetters
+
+
+
+
+hover matrix real place
+lettere da a stesso posto
+zoom temporale preciso (non data dependent)
+lettere aggregate vs singole
+line style
+
+addressee INCLUDES ccccccc
+
+
+
+
 -------------------------- */
 
 class App extends React.Component {
@@ -44,36 +59,20 @@ class App extends React.Component {
   showHoveredDate (date, x) {
     const placesAndDistance = this.state.places.map(e => {
       var diff = moment(date).diff(e.date, 'days')
-      // console.log('DATE input', moment(date))
-      // console.log('DATE curr.', e.date)
-      // console.log('DATE diff.', diff)
       return Object.assign({}, e, {distanceDays: diff})
     })
-    const sortedPAD = _.sortBy(placesAndDistance, e => Math.abs(e.distanceDays))
+    const sortedPAD = _.sortBy(placesAndDistance, e => {
+      if(e.distanceDays < 0) return Infinity
+      else return e.distanceDays
+    })
     const nearestPlace = sortedPAD[0]
-    // const tmpTwoPlaces = [sortedPAD[0], sortedPAD[1]]
-    //   .sort((a,b) => Math.abs(a.distanceDays - b.distanceDays))
-    // const nextPlace = tmpTwoPlaces[0]
-    // const prevPlace = tmpTwoPlaces[1]
-
-    // xScale
-
     $('#hover-line-matrix')
       .attr('x1', x)
       .attr('x2', x)
-
-    // $('#hover-dot-map')
-    //   .attr('cx', dotX)
-    //   .attr('cy', dotY)
-
-    // console.log('sorted placesAndDistance', placesAndDistance)
     console.log('nearestPlace', nearestPlace.place)
-    // console.log('nearestPlace', nearestPlace)
-    // console.log('nextPlace', nextPlace)
-    // console.log('prevPlace', prevPlace)
-    // console.log('------')
-
-    this.setState({hovered: nearestPlace})
+    if(this.state.hovered === null || this.state.hovered.place !== nearestPlace.place){
+      this.setState({hovered: nearestPlace})
+    }
   }
 
   componentDidMount () {
@@ -171,19 +170,26 @@ class App extends React.Component {
       return e.date.isBetween(from, to)
     })
 
+    const filteredLetters = this.state.letters.filter(e => {
+      if(this.state.dateFilter.length === 0) return true
+      const from = moment(this.state.dateFilter[0], 'YYYY-M-D')
+      const to = moment(this.state.dateFilter[1], 'YYYY-M-D')
+      return e.date.isBetween(from, to)
+    })
+
     const propsHeader = {
       setTimeFilter: this.setTimeFilter
     }
     const propsLeft = {
       showHoveredDate: this.showHoveredDate,
       places: filteredPlaces,
-      letters: this.state.letters
+      letters: filteredLetters
     }
     const propsRight = {
       worldTopology: this.state.worldTopology,
       hovered: this.state.hovered,
       places: filteredPlaces,
-      letters: this.state.letters
+      letters: filteredLetters
     }
     
     return (

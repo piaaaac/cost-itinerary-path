@@ -29,6 +29,7 @@ export default class Right extends React.Component{
     let propsMapPath = {}
     let propsMapLetters = {}
     let propsHoverDot = {}
+    let hoverText = {}
 
     // console.log('readyToDisplay', readyToDisplay)
 
@@ -81,11 +82,20 @@ export default class Right extends React.Component{
       if(hovered !== null){
         console.log('hovered', hovered)
         const coo = [hovered.coordinates.lon, hovered.coordinates.lat]
+        const x = projection(coo)[0]
+        const y = projection(coo)[1]
         propsHoverDot = {
-          cx: projection(coo)[0],
-          cy: projection(coo)[1],
-          r: 5
+          cx: x,
+          cy: y,
         }
+        hoverText = {
+          text: hovered.place,
+          props: {
+            x: x,
+            y: y - 15,
+          }
+        }
+        console.log('propsHoverDot', propsHoverDot)
       }
     }
     
@@ -100,7 +110,10 @@ export default class Right extends React.Component{
           { readyToDisplay && <MapLetters {...propsMapLetters} />}
 
           { (readyToDisplay && hovered !== null) && 
-            <circle id="hover-dot-map" {...propsHoverDot} />
+            <g className="hover-dot-map">
+              <circle {...propsHoverDot} />
+              <text {...hoverText.props}>{hoverText.text}</text>
+            </g>
           }
 
         </svg>      

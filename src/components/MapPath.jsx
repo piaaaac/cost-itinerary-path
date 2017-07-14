@@ -15,7 +15,7 @@ export default function MapPath({
     const lineProps = {
       key: 'line-'+ i,
       id: 'line-'+ i,
-      className: "svg-path-line animate-delay" + (e.place.type.trim() === 'S' ? ' small' : ''),
+      className: "svg-path-line animate-delay map" + (e.place.type.trim() === 'S' ? ' small-trip' : ''),
       // className: "svg-path-line animate-delay",
       d: scaleGeo(e.pathLine.geometry),
       // "data-delay": i * 200

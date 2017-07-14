@@ -10,15 +10,26 @@ export default function MatrixLetters({
     const place = (type === 'sent') ? e.cityTo : e.cityFrom
     const circleProps = {
       key: 'circle-'+ i,
-      className: "svg-circle",
+      className: "svg-letters-circle "+ type,
       cx: xScale(e.date),
       cy: yScale(place),
       r: 3,
+      onClick: () => console.log('letter:', e)
     }
-    return (<circle {...circleProps} />)
+    return (
+      <circle {...circleProps}>
+        <title>
+          {(
+            type === 'sent' 
+              ? 'Letter to ' + e.addressees
+              : 'Letter from ' + e.creator
+          ) +' ('+ e.date.format('DD MMM YYYY') +')'}
+        </title>
+      </circle>
+    )
   })
   return (
-    <g className="svg-circles">
+    <g className="svg-letters-circles">
       {circles}
     </g>
   )

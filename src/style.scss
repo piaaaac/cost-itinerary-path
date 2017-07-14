@@ -19,6 +19,8 @@ $screen-md-min: 992px;
 $screen-lg-min: 1070px;
 
 $menuHeight: 60px;
+$colorSent: #fd7284;
+$colorReceived: #8592ed;
 
 // ------------------------------------------------------------------------
 // MIXINS
@@ -109,7 +111,7 @@ $menuHeight: 60px;
 }
 
 .tmp-filters{
-  margin-right: 5px;
+  margin-left: 15px;
 }
 
 svg{
@@ -128,15 +130,25 @@ svg{
   g.svg-path-lines{
     .svg-path-line{
       stroke: black;
-      stroke-width: 1.5;
       opacity: 0.5;
       opacity: 1;
       stroke-linecap: round;
       fill: none;
       @include propTransition(opacity, .3s, ease-in);
-      &.small{
+      &.map{
         stroke-width: 0.5;
-        stroke: rgba(0,0,0, 0.5);
+      }
+      &.vertical{
+        stroke-width: 0.5;
+        stroke-dasharray: 3,1;
+        stroke: rgba(0,0,0, 0.3);
+      }
+      &.horizontal{
+        stroke-width: 1.5;
+      }
+      &.small-trip{
+        // stroke-width: 0.5;
+        // stroke: rgba(0,0,0, 0.5);
       }
     }
   }
@@ -153,9 +165,36 @@ svg{
       font-size: 11px;
     }
   }
-  #hover-dot-map{
-    fill: black;
-    stroke: white;
+  g.svg-letters-circles{
+    circle{
+      cursor: pointer;
+      &:hover{
+        opacity: 1;
+        r: 5;
+      }
+      &.sent{ 
+        fill: $colorSent;
+        opacity: 0.9;
+      }
+      &.received{ 
+        fill: $colorReceived;
+        opacity: 0.9;
+      }
+    }
+  }
+  .hover-dot-map{
+    circle{
+      fill: none;
+      stroke-width: 2;
+      stroke: black;
+      r: 8;
+    }
+    text{
+      fill: black;
+      font-size: 11px;
+      text-anchor: middle;
+      alignment-baseline: baseline;
+    }
   }
   #hover-line-matrix{
     stroke: rgba(0,0,0, 0.2);
