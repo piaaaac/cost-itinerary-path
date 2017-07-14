@@ -4,10 +4,12 @@ import { geoPath, geoMercator } from 'd3-geo'
 import * as topojson from 'topojson'
 import Map from './Map'
 import MapPath from './MapPath'
+import MapLetters from './MapLetters'
 
   // worldTopology
   // places
   // hovered
+  // letters
 
 export default class Right extends React.Component{
   constructor (props) {
@@ -18,12 +20,14 @@ export default class Right extends React.Component{
   componentDidMount () {}
 
   render () {
+    const letters = this.props.letters
     const worldTopology = this.props.worldTopology
     const hovered = this.props.hovered
     const places = this.props.places
     const readyToDisplay = (this.containerNode !== null) && (worldTopology !== null)
     let propsMap = {}
     let propsMapPath = {}
+    let propsMapLetters = {}
     let propsHoverDot = {}
 
     // console.log('readyToDisplay', readyToDisplay)
@@ -69,6 +73,11 @@ export default class Right extends React.Component{
         pathLines,
         scaleGeo
       }
+      propsMapLetters = {
+        projection,
+        letters
+      }
+    
       if(hovered !== null){
         console.log('hovered', hovered)
         const coo = [hovered.coordinates.lon, hovered.coordinates.lat]
@@ -87,6 +96,8 @@ export default class Right extends React.Component{
           { readyToDisplay && <Map {...propsMap} />}
           
           { readyToDisplay && <MapPath {...propsMapPath} />}
+          
+          { readyToDisplay && <MapLetters {...propsMapLetters} />}
 
           { (readyToDisplay && hovered !== null) && 
             <circle id="hover-dot-map" {...propsHoverDot} />

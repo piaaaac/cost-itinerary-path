@@ -80,7 +80,9 @@ class App extends React.Component {
     const rootURL = '.'
     const comp = this
     csv(rootURL + '/data/letters-tmp.csv', function(err, data) {
-      comp.setState({letters: data})
+      const parsed = data.map(d => comp.parseLetter(d))
+      console.log('parsed letters', parsed)
+      comp.setState({letters: parsed})
     })
     csv(rootURL + '/data/placesss.csv', function(err, data) {
       const parsed = data.map(d => comp.parsePlace(d))
@@ -129,6 +131,37 @@ class App extends React.Component {
     })
   }
 
+  parseLetter (d) {
+    // coordinates
+    let c = d.coordinatesFrom.split(', ')
+    const coF = {
+      lon: +c[1],
+      lat: +c[0]
+    }
+    c = d.coordinatesTo.split(', ')
+    const coT = {
+      lon: +c[1],
+      lat: +c[0]
+    }
+    
+    // date
+    const YYYY = d.year
+    let M = d.month.trim()
+    let D = d.day.trim()
+    const dateString = YYYY +'-'+ M +'-'+ D
+    const date = moment(dateString, 'YYYY-M-D')
+    if(!date.isValid()){
+      console.log('invalid date: ', d.year,d.month,d.day)
+      alert('invalid date: ', d.year,d.month,d.day)
+    }
+
+    return Object.assign({}, d, {
+      coordinatesFrom: coF,
+      coordinatesTo: coT,
+      date: date
+    })
+  }
+
   render () {
       
     const filteredPlaces = this.state.places.filter(e => {
@@ -142,15 +175,17 @@ class App extends React.Component {
       setTimeFilter: this.setTimeFilter
     }
     const propsLeft = {
+      showHoveredDate: this.showHoveredDate,
       places: filteredPlaces,
-      showHoveredDate: this.showHoveredDate
+      letters: this.state.letters
     }
     const propsRight = {
       worldTopology: this.state.worldTopology,
+      hovered: this.state.hovered,
       places: filteredPlaces,
-      hovered: this.state.hovered
+      letters: this.state.letters
     }
-
+    
     return (
       <div className='appp'>
 

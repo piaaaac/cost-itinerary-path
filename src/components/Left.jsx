@@ -98,6 +98,7 @@ export default class Left extends React.Component{
 
   render () {
     const places = this.props.places
+    const letters = this.props.letters
     // console.log('places', places)
     const readyToDisplay = (this.containerNode !== null)
     let propsMatrixPath = {}
@@ -172,7 +173,7 @@ export default class Left extends React.Component{
       propsMatrixLetters = {
         xScale,
         yScale,
-        // letters
+        letters
       }
       propsAxis = {
         xScale: xScale,
