@@ -1,11 +1,99 @@
 import React from 'react'
+import turf from 'turf'
+import { geoPath, geoMercator } from 'd3-geo'
+import * as topojson from 'topojson'
+import Map from './Map'
+import MapPath from './MapPath'
 
-export default function Right({
-  blah
-}){
-  return (
-    <div className='col-sm-6 appp-right'>
-      RIGHT
-    </div>
-  )
+  // worldTopology
+  // places
+  // hovered
+
+export default class Right extends React.Component{
+  constructor (props) {
+    super(props)
+    this.containerNode = null
+  }
+
+  componentDidMount () {}
+
+  render () {
+    const worldTopology = this.props.worldTopology
+    const hovered = this.props.hovered
+    const places = this.props.places
+    const readyToDisplay = (this.containerNode !== null) && (worldTopology !== null)
+    let propsMap = {}
+    let propsMapPath = {}
+    let propsHoverDot = {}
+
+    // console.log('readyToDisplay', readyToDisplay)
+
+    if(readyToDisplay){
+      
+      const margin = 20
+      const width = this.containerNode.clientWidth
+      const height = this.containerNode.clientHeight
+      
+      const pathLineString = turf.lineString(this.props.places.map(e => {
+        return([e.coordinates.lon, e.coordinates.lat])
+      }))
+      // console.log('pathLineString', pathLineString)
+
+      const pathLines = []
+      this.props.places.forEach((e, i, a) => {
+        if(i > 0){
+          const p1 = [a[i-1].coordinates.lon, a[i-1].coordinates.lat]
+          const p2 = [e.coordinates.lon, e.coordinates.lat]
+          const l = turf.lineString([p1,p2])
+          pathLines.push({pathLine: l, place: e})
+        }
+      })
+      // console.log('pathLines', pathLines)
+
+      // --- MAP
+
+      const projection = geoMercator().fitExtent(
+        // [[margin, margin], [margin+20, margin+20]],
+        [[margin, margin], [width - margin, height - margin]],
+        pathLineString
+      )
+      const scaleGeo = geoPath(projection)
+
+      // console.log('scaleGeo', scaleGeo)
+
+      propsMap = {
+        worldTopology,
+        scaleGeo
+      }
+      propsMapPath = {
+        pathLines,
+        scaleGeo
+      }
+      if(hovered !== null){
+        console.log('hovered', hovered)
+        const coo = [hovered.coordinates.lon, hovered.coordinates.lat]
+        propsHoverDot = {
+          cx: projection(coo)[0],
+          cy: projection(coo)[1],
+          r: 5
+        }
+      }
+    }
+    
+    return (
+      <div className='col-sm-6 appp-right' ref={e => this.containerNode = e}>
+        <svg>      
+          
+          { readyToDisplay && <Map {...propsMap} />}
+          
+          { readyToDisplay && <MapPath {...propsMapPath} />}
+
+          { (readyToDisplay && hovered !== null) && 
+            <circle id="hover-dot-map" {...propsHoverDot} />
+          }
+
+        </svg>      
+      </div>
+    )
+  }
 }

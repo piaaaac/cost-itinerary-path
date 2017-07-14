@@ -63,7 +63,15 @@ $menuHeight: 60px;
 // SCSS
 // ------------------------------------------------------------------------
 
-@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&subset=cyrillic,latin-ext');
+// font-family: 'Rubik', sans-serif;
+
+*{
+  font-family: 'Rubik', sans-serif;
+  padding: 0; margin: 0;
+  letter-spacing: .03em;
+  box-sizing: border-box;
+}
 
 .appp{
   height: 100vh;
@@ -93,6 +101,65 @@ $menuHeight: 60px;
 .appp-left{
   border-right: 1px solid $greyLLL;
   height: 100%;
+}
+
+.appp-right{
+  height: 100%;
+  padding: 0;
+}
+
+.tmp-filters{
+  margin-right: 5px;
+}
+
+svg{
+  width: 100%;
+  height: 100%;
+  g.svg-map{
+    stroke: white;
+    stroke-width: 1;
+    fill: $greyLLL;
+    opacity: 1;
+    @include propTransition(opacity, .3s, ease-in);
+    &.show{
+      opacity: 1;
+    }
+  }
+  g.svg-path-lines{
+    .svg-path-line{
+      stroke: black;
+      stroke-width: 1.5;
+      opacity: 0.5;
+      opacity: 1;
+      stroke-linecap: round;
+      fill: none;
+      @include propTransition(opacity, .3s, ease-in);
+      &.small{
+        stroke-width: 0.5;
+        stroke: rgba(0,0,0, 0.5);
+      }
+    }
+  }
+  g.svg-grid-lines{
+    line{
+      stroke: rgba(0,0,0, 0.05);
+    }
+    rect.matrix-bg{
+      fill: white;
+    }
+  }
+  g.svg-grid-names{
+    text{
+      font-size: 11px;
+    }
+  }
+  #hover-dot-map{
+    fill: black;
+    stroke: white;
+  }
+  #hover-line-matrix{
+    stroke: rgba(0,0,0, 0.2);
+  }
 }
 
 // ------------------------------------------------------------------------
