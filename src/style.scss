@@ -65,7 +65,8 @@ $colorReceived: #8592ed;
 // SCSS
 // ------------------------------------------------------------------------
 
-@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&subset=cyrillic,latin-ext');
+// @import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&subset=cyrillic,latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,500i&subset=cyrillic,hebrew,latin-ext');
 // font-family: 'Rubik', sans-serif;
 
 *{
@@ -112,6 +113,27 @@ $colorReceived: #8592ed;
 
 .tmp-filters{
   margin-left: 15px;
+}
+
+.page-title-1{
+  font-weight: 500;
+  font-size: 15px;
+  font-style: italic;
+  letter-spacing: 0;
+}
+.page-title-2{
+  font-weight: 500;
+  font-size: 15px;
+  font-style: italic;
+  letter-spacing: 0;
+}
+.header-filters-container{
+  margin-left: 30px;
+}
+img.legend{
+  height: 59px;
+  position: relative;
+  top: -20px;
 }
 
 svg{

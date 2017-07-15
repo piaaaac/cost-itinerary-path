@@ -127,6 +127,13 @@ export default class Left extends React.Component{
       places.forEach(e => {
         if(!allPlaces.includes(e.place)) allPlaces.push(e.place)
       })
+
+      // ALL CITIES ON / OFF
+      // letters.forEach(e => {
+      //   const city = (e.creator.indexOf('CCCCCC') !== -1) ? 'cityTo' : 'cityFrom'
+      //   if(!allPlaces.includes(e[city])) allPlaces.push(e[city])
+      // })
+
       yScale = scaleBand()
         .domain(allPlaces)
         .range([margins.top, height - margins.bottom])

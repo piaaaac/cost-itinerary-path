@@ -6,7 +6,8 @@ export default function MatrixLetters({
   letters
 }){
   const circles = letters.map((e, i) => {
-    const type = (e.creator === 'CCCCCC') ? 'sent' : 'received'
+    const type = (e.creator.indexOf('CCCCCC') !== -1) ? 'sent' : 'received'
+    // const type = (e.creator === 'CCCCCC') ? 'sent' : 'received'
     const place = (type === 'sent') ? e.cityTo : e.cityFrom
     const circleProps = {
       key: 'circle-'+ i,

@@ -89,7 +89,8 @@ class App extends React.Component {
       comp.setState({places: parsed})
       // comp.setState({places: sorted})
     })
-    json(rootURL + '/data/world-110m.v1.json', function(err, data) {
+    // json(rootURL + '/data/world-110m.v1.json', function(err, data) {
+    json(rootURL + '/data/world-50m.json', function(err, data) {
       comp.setState({worldTopology: data})
     })
 

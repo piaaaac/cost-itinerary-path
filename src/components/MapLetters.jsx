@@ -5,7 +5,8 @@ export default function MapLetters({
   letters
 }){
   const circles = letters.map((e, i) => {
-    const type = (e.creator === 'CCCCCC') ? 'sent' : 'received'
+    const type = (e.creator.indexOf('CCCCCC') !== -1) ? 'sent' : 'received'
+    // const type = (e.creator === 'CCCCCC') ? 'sent' : 'received'
     const co = (type === 'sent') ? e.coordinatesTo : e.coordinatesFrom
     const coo = [co.lon, co.lat]
     const circleProps = {
